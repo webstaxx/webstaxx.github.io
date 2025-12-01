@@ -1,0 +1,52 @@
+<html>
+<title>WebStacks</title>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Oswald|Poppins|Rubik|Raleway">
+</head>
+<style>
+    body {
+    background: linear-gradient(to right, #ff6a00, #ee0979, #7f00ff, #00d2ff, #ff6a00);
+    background-size: 400% 400%;
+    animation: gradientShift 20s ease infinite;
+    }
+
+    @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+    }
+    .container {
+    display: flex;
+    justify-content: center;  /* Center horizontally */
+    align-items: center;      /* Center vertically */
+    height: 90vh;            /* Full viewport height */
+    }
+    .web-box1 {
+    margin-left: auto;
+    margin-right: auto;
+    width: 720px;
+    text-align: center; 
+    display: block;
+    font-family: "Kanit", sans-serif;
+    font-size: 22px;
+    padding: 15%;
+    }
+    .web-box1 h2 {
+    color: #ffffff; 
+    text-shadow: 2px 2px 8px #00000088;
+    font-family: "Poppins", sans-serif;
+    font-size: 70px; 
+    padding: 0px;
+    }
+</style>
+  <body>
+    <div class="container">
+        <div class="web-box1"> 
+            <h2 >I'm too lazy to make this Website [WIP]</h2> 
+        </div> 
+    </div>
+  </body>
+
+</html>
