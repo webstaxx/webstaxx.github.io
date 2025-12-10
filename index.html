@@ -1,226 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
+<title>WebStacks</title>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hand Tracking Fist Detection</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: #000;
-            font-family: system-ui, -apple-system, sans-serif;
-            flex-direction: column;
-        }
-        #container {
-            position: relative;
-            max-width: 100vw;
-            max-height: 100vh;
-        }
-        #video {
-            display: block;
-            max-width: 100%;
-            max-height: 100vh;
-            transform: scaleX(-1);
-        }
-        #canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            transform: scaleX(-1);
-        }
-        #status {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            color: white;
-            background: rgba(0,0,0,0.7);
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        #error {
-            color: #ff4444;
-            background: rgba(0,0,0,0.9);
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-            max-width: 600px;
-        }
-    </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Oswald|Poppins|Rubik|Raleway">
 </head>
-<body>
-    <div id="container">
-        <video id="video" autoplay playsinline></video>
-        <canvas id="canvas"></canvas>
-        <div id="status">Initializing...</div>
+<style>
+    body {
+    background: linear-gradient(to right, #ff6a00, #ee0979, #7f00ff, #00d2ff, #ff6a00);
+    background-size: 400% 400%;
+    animation: gradientShift 20s ease infinite;
+    }
+
+    @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+    }
+    .container {
+    display: flex;
+    justify-content: center;  /* Center horizontally */
+    align-items: center;      /* Center vertically */
+    height: 90vh;            /* Full viewport height */
+    }
+    .web-box1 {
+    margin-left: auto;
+    margin-right: auto;
+    width: 720px;
+    text-align: center; 
+    display: block;
+    font-family: "Kanit", sans-serif;
+    font-size: 22px;
+    padding: 15%;
+    }
+    .web-box1 h2 {
+    color: #ffffff; 
+    text-shadow: 2px 2px 8px #00000088;
+    font-family: "Poppins", sans-serif;
+    font-size: 70px; 
+    padding: 0px;
+    }
+</style>
+  <body>
+    <div class="container">
+        <div class="web-box1"> 
+            <h2 >I'm too lazy to make this Website [WIP]</h2> 
+        </div> 
     </div>
-    <div id="error" style="display:none;"></div>
+  </body>
 
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
-
-    <script>
-        const video = document.getElementById('video');
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        const status = document.getElementById('status');
-        const errorDiv = document.getElementById('error');
-        
-        let isFist = false;
-
-        async function init() {
-            try {
-                // Check if running on HTTPS or localhost
-                if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
-                    throw new Error('Camera requires HTTPS or localhost. Current: ' + location.protocol + '//' + location.hostname);
-                }
-
-                // Check if mediaDevices is available
-                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                    throw new Error('getUserMedia not supported in this browser or context');
-                }
-                
-                status.textContent = 'Requesting camera...';
-                
-                const stream = await navigator.mediaDevices.getUserMedia({ 
-                    video: { 
-                        width: { ideal: 1280 },
-                        height: { ideal: 720 }
-                    } 
-                });
-                
-                video.srcObject = stream;
-                
-                await new Promise((resolve) => {
-                    video.onloadedmetadata = () => {
-                        resolve();
-                    };
-                });
-                
-                await video.play();
-                
-                status.textContent = 'Loading hand detection...';
-                
-                const hands = new Hands({
-                    locateFile: (file) => {
-                        return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
-                    }
-                });
-
-                hands.setOptions({
-                    maxNumHands: 2,
-                    modelComplexity: 1,
-                    minDetectionConfidence: 0.5,
-                    minTrackingConfidence: 0.5
-                });
-
-                hands.onResults(onResults);
-
-                status.textContent = 'Ready';
-                status.style.background = 'rgba(0,255,0,0.7)';
-
-                async function detectFrame() {
-                    if (video.readyState === video.HAVE_ENOUGH_DATA) {
-                        canvas.width = video.videoWidth;
-                        canvas.height = video.videoHeight;
-                        await hands.send({image: video});
-                    }
-                    requestAnimationFrame(detectFrame);
-                }
-                
-                detectFrame();
-                
-            } catch (err) {
-                status.textContent = 'Error';
-                status.style.background = 'rgba(255,0,0,0.7)';
-                errorDiv.style.display = 'block';
-                errorDiv.innerHTML = `
-                    <h3>Error: ${err.message}</h3>
-                    <p><strong>Requirements:</strong></p>
-                    <ul>
-                        <li>Must use HTTPS or localhost (http://localhost or http://127.0.0.1)</li>
-                        <li>Browser must support getUserMedia</li>
-                        <li>Camera permissions must be granted</li>
-                    </ul>
-                    <p><strong>Current location:</strong> ${location.href}</p>
-                `;
-                console.error('Initialization error:', err);
-            }
-        }
-
-        function onResults(results) {
-            ctx.save();
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
-                for (const landmarks of results.multiHandLandmarks) {
-                    drawConnectors(ctx, landmarks, HAND_CONNECTIONS, {color: '#00FF00', lineWidth: 2});
-                    drawLandmarks(ctx, landmarks, {color: '#FF0000', lineWidth: 1, radius: 3});
-                    
-                    const fistDetected = detectFist(landmarks);
-                    
-                    if (fistDetected && !isFist) {
-                        console.log('GRAB');
-                        isFist = true;
-                        status.textContent = 'GRAB';
-                        status.style.background = 'rgba(255,0,0,0.7)';
-                    } else if (!fistDetected && isFist) {
-                        console.log('RELEASE');
-                        isFist = false;
-                        status.textContent = 'RELEASE';
-                        status.style.background = 'rgba(0,255,0,0.7)';
-                    }
-                }
-            }
-            
-            ctx.restore();
-        }
-
-        function detectFist(landmarks) {
-            const fingerTips = [8, 12, 16, 20];
-            const fingerBases = [5, 9, 13, 17];
-            const thumbTip = 4;
-            const thumbBase = 2;
-            const palmBase = 9;
-            
-            let closedFingers = 0;
-            
-            for (let i = 0; i < fingerTips.length; i++) {
-                const tip = landmarks[fingerTips[i]];
-                const base = landmarks[fingerBases[i]];
-                const palm = landmarks[palmBase];
-                
-                const tipToPalm = Math.hypot(tip.x - palm.x, tip.y - palm.y);
-                const baseToPalm = Math.hypot(base.x - palm.x, base.y - palm.y);
-                
-                if (tipToPalm < baseToPalm * 1.1) {
-                    closedFingers++;
-                }
-            }
-            
-            const thumbTipPoint = landmarks[thumbTip];
-            const thumbBasePoint = landmarks[thumbBase];
-            const palmCenter = landmarks[palmBase];
-            
-            const thumbTipToPalm = Math.hypot(thumbTipPoint.x - palmCenter.x, thumbTipPoint.y - palmCenter.y);
-            const thumbBaseToPalm = Math.hypot(thumbBasePoint.x - palmCenter.x, thumbBasePoint.y - palmCenter.y);
-            
-            const thumbClosed = thumbTipToPalm < thumbBaseToPalm * 1.3;
-            
-            return closedFingers >= 3 && thumbClosed;
-        }
-
-        init();
-    </script>
-</body>
 </html>
