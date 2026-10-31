@@ -1,0 +1,141 @@
+.about-page {
+  position: relative;
+}
+
+.about-page__hero {
+  padding: clamp(150px, 22vh, 240px) 0 clamp(80px, 11vw, 140px);
+}
+
+.about-page__intro {
+  max-width: 38ch;
+}
+
+.about-page__body {
+  padding: clamp(60px, 8vw, 104px) 0;
+  border-top: 1px solid var(--line);
+}
+
+.about-page__body-grid {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 80px);
+}
+
+.about-page__rail {
+  position: relative;
+  min-height: 100%;
+}
+
+.about-page__rail-line,
+.about-page__rail-fill {
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: calc(50% - 0.5px);
+  width: 1px;
+}
+
+.about-page__rail-line {
+  background: var(--line);
+}
+
+.about-page__rail-fill {
+  transform: scaleY(0);
+  transform-origin: top center;
+  background: var(--cyan);
+}
+
+.about-page__entries {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 7vw, 86px);
+  max-width: 780px;
+}
+
+.about-entry {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  gap: 24px;
+  padding-bottom: clamp(42px, 6vw, 72px);
+  border-bottom: 1px solid var(--line);
+}
+
+.about-entry:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.about-entry__index {
+  padding-top: 7px;
+  color: var(--cyan);
+  font-family: var(--mono);
+  font-size: 0.59rem;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+.about-entry h2 {
+  font-size: clamp(1.45rem, 2.5vw, 2.1rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+.about-entry p {
+  max-width: 58ch;
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.75;
+}
+
+.about-page__end {
+  padding: clamp(80px, 12vw, 150px) 0 clamp(100px, 14vw, 180px);
+  border-top: 1px solid var(--line);
+}
+
+.about-page__end-inner .display {
+  max-width: 15ch;
+}
+
+.about-page__end .text-link {
+  margin-top: 34px;
+}
+
+@media (max-width: 899px) {
+  .about-page__hero {
+    padding-top: 132px;
+    padding-bottom: 72px;
+  }
+
+  .about-page__body-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-page__rail {
+    display: none;
+  }
+
+  .about-entry {
+    grid-template-columns: 38px 1fr;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-entry {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .about-entry__index {
+    padding-top: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-page__rail-fill {
+    transform: scaleY(1);
+  }
+}
