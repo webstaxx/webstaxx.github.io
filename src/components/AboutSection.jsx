@@ -1,5 +1,6 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { gsap } from '../lib/gsap'
+import { useIsomorphicLayoutEffect } from '../hooks/useIsomorphicLayoutEffect'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { ArrowUpRight } from './Icons'
 import RippleCanvas from './RippleCanvas'
@@ -8,7 +9,7 @@ export default function AboutSection({ onNavigate }) {
   const rootRef = useRef(null)
   const reduced = useReducedMotion()
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const root = rootRef.current
     if (!root) return undefined
 
@@ -49,14 +50,14 @@ export default function AboutSection({ onNavigate }) {
   }, [reduced])
 
   return (
-    <section ref={rootRef} id="about" className="about section">
+    <section ref={rootRef} id="about" className="about section" aria-labelledby="about-title">
       <div className="section-shell about__grid">
         <div className="about__copy">
           <p className="eyebrow">
             <span>01</span>
             About
           </p>
-          <h2 className="display">
+          <h2 id="about-title" className="display">
             Curious by default.
             <br />
             {' '}
@@ -72,10 +73,10 @@ export default function AboutSection({ onNavigate }) {
           </p>
           <a
             className="text-link"
-            href="#/about"
+            href="/about/"
             onClick={(event) => {
               event.preventDefault()
-              onNavigate('/about')
+              onNavigate('/about/')
             }}
           >
             The longer version

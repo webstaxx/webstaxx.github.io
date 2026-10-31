@@ -7,7 +7,7 @@ export default function Footer({ onNavigate }) {
       <div className="section-shell site-footer__inner">
         <a
           className="site-footer__brand"
-          href="#/"
+          href="/"
           aria-label="WEBSTAXX home"
           onClick={(event) => {
             event.preventDefault()

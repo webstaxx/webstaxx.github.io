@@ -3,9 +3,9 @@ import LogoSlot from './LogoSlot'
 import { CloseIcon, MenuIcon } from './Icons'
 
 const links = [
-  { label: 'Work', action: 'work' },
-  { label: 'About', action: 'about' },
-  { label: 'Contact', action: 'contact' },
+  { label: 'Work', action: 'work', href: '/#work' },
+  { label: 'About', action: 'about', href: '/about/' },
+  { label: 'Contact', action: 'contact', href: '/#contact' },
 ]
 
 export default function Header({ route, onNavigate, onSection }) {
@@ -38,7 +38,7 @@ export default function Header({ route, onNavigate, onSection }) {
   const go = (action) => {
     setMenuOpen(false)
     if (action === 'about') {
-      onNavigate('/about')
+      onNavigate('/about/')
       return
     }
     onSection(action)
@@ -50,7 +50,7 @@ export default function Header({ route, onNavigate, onSection }) {
         <div className="site-header__inner">
           <a
             className="brand"
-            href="#/"
+            href="/"
             aria-label="WEBSTAXX home"
             onClick={(event) => {
               event.preventDefault()
@@ -63,14 +63,18 @@ export default function Header({ route, onNavigate, onSection }) {
 
           <nav className="site-nav" aria-label="Primary">
             {links.map((link) => (
-              <button
+              <a
                 key={link.label}
-                type="button"
-                className={`site-nav__link ${link.action === 'about' && route === '/about' ? 'is-active' : ''}`}
-                onClick={() => go(link.action)}
+                className={`site-nav__link ${link.action === 'about' && route === '/about/' ? 'is-active' : ''}`}
+                href={link.href}
+                aria-current={link.action === 'about' && route === '/about/' ? 'page' : undefined}
+                onClick={(event) => {
+                  event.preventDefault()
+                  go(link.action)
+                }}
               >
                 {link.label}
-              </button>
+              </a>
             ))}
           </nav>
 
@@ -95,16 +99,20 @@ export default function Header({ route, onNavigate, onSection }) {
       <div id="mobile-menu" className={`mobile-menu ${menuOpen ? 'is-open' : ''}`} aria-hidden={!menuOpen}>
         <nav className="mobile-menu__nav" aria-label="Mobile">
           {links.map((link, index) => (
-            <button
+            <a
               key={link.label}
-              type="button"
               className="mobile-menu__link"
+              href={link.href}
               tabIndex={menuOpen ? 0 : -1}
-              onClick={() => go(link.action)}
+              aria-current={link.action === 'about' && route === '/about/' ? 'page' : undefined}
+              onClick={(event) => {
+                event.preventDefault()
+                go(link.action)
+              }}
             >
               <span className="mobile-menu__index">0{index + 1}</span>
               {link.label}
-            </button>
+            </a>
           ))}
         </nav>
         <p className="mobile-menu__note">Web Developer · Programmer · Thinker</p>

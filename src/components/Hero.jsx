@@ -1,5 +1,6 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { gsap } from '../lib/gsap'
+import { useIsomorphicLayoutEffect } from '../hooks/useIsomorphicLayoutEffect'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { ArrowDown } from './Icons'
 
@@ -10,7 +11,7 @@ export default function Hero({ onSection }) {
   const displacementRef = useRef(null)
   const reduced = useReducedMotion()
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const root = rootRef.current
     if (!root) return undefined
 

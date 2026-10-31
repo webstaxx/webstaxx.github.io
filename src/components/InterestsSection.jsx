@@ -1,14 +1,9 @@
-﻿import { useLayoutEffect, useRef, useState } from 'react'
+﻿import { useRef, useState } from 'react'
 import { gsap, ScrollTrigger } from '../lib/gsap'
+import { useIsomorphicLayoutEffect } from '../hooks/useIsomorphicLayoutEffect'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import LiquidBlob from './LiquidBlob'
-
-const interests = [
-  { name: 'Physics', note: 'The rules underneath everything.' },
-  { name: 'Astronomy', note: 'The scale above everything.' },
-  { name: 'Technology', note: 'The tools in between.' },
-  { name: 'Music', note: 'The pattern you can feel.' },
-]
+import { interests } from '../data/site.js'
 
 export default function InterestsSection() {
   const rootRef = useRef(null)
@@ -16,7 +11,7 @@ export default function InterestsSection() {
   const [active, setActive] = useState(0)
   const reduced = useReducedMotion()
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const root = rootRef.current
     if (!root || reduced) return undefined
 

@@ -1,21 +1,15 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { gsap } from '../lib/gsap'
+import { useIsomorphicLayoutEffect } from '../hooks/useIsomorphicLayoutEffect'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import WireframeTorus from './WireframeTorus'
-
-const technologies = [
-  { name: 'HTML', role: 'Structure' },
-  { name: 'CSS', role: 'Interface' },
-  { name: 'JavaScript', role: 'Behaviour' },
-  { name: 'Python', role: 'Systems' },
-  { name: 'Java', role: 'Foundations' },
-]
+import { technologies } from '../data/site.js'
 
 export default function TechSection() {
   const rootRef = useRef(null)
   const reduced = useReducedMotion()
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const root = rootRef.current
     if (!root) return undefined
 

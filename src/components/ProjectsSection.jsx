@@ -1,45 +1,12 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { gsap } from '../lib/gsap'
-
-const projects = [
-  {
-    index: '01',
-    title: 'Noelle AI',
-    subtitle: 'for Theorly.edu',
-    year: '2025',
-    note: 'A learning companion built for a quieter, more personal way of studying.',
-    tags: ['AI', 'Web', 'Product'],
-  },
-  {
-    index: '02',
-    title: 'Election Management System',
-    subtitle: 'Civic infrastructure',
-    year: '2024',
-    note: 'A system for organising, running, and reading elections with clarity.',
-    tags: ['Systems', 'Python', 'Data'],
-  },
-  {
-    index: '03',
-    title: 'Tallyne',
-    subtitle: 'An experimental esoteric programming language',
-    year: '2024',
-    note: 'A language experiment asking what computation could look like if the grammar changed.',
-    tags: ['Language', 'Parser', 'Tooling'],
-  },
-  {
-    index: '04',
-    title: 'Multiple Websites',
-    subtitle: 'Freelance / independent',
-    year: '2023 — now',
-    note: 'A growing collection of independent builds, each shaped around its own purpose.',
-    tags: ['Web', 'Design', 'Build'],
-  },
-]
+import { useIsomorphicLayoutEffect } from '../hooks/useIsomorphicLayoutEffect'
+import { projects } from '../data/site.js'
 
 export default function ProjectsSection() {
   const rootRef = useRef(null)
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const root = rootRef.current
     if (!root) return undefined
 
@@ -109,10 +76,10 @@ export default function ProjectsSection() {
     <section ref={rootRef} id="work" className="work section" aria-labelledby="work-title">
       <div className="work__pin">
         <div className="section-shell work__top">
-          <p className="eyebrow">
+          <h2 id="work-title" className="eyebrow">
             <span>02</span>
             Selected work
-          </p>
+          </h2>
           <p className="work__hint">Scroll to traverse</p>
         </div>
 

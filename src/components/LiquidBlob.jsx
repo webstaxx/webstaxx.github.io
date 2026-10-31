@@ -1,5 +1,6 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { gsap } from '../lib/gsap'
+import { useIsomorphicLayoutEffect } from '../hooks/useIsomorphicLayoutEffect'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 
 const CENTER = 300
@@ -51,7 +52,7 @@ export default function LiquidBlob({ active }) {
   const groupRef = useRef(null)
   const reduced = useReducedMotion()
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const path = pathRef.current
     if (!path) return undefined
 
@@ -69,7 +70,7 @@ export default function LiquidBlob({ active }) {
     return () => tween.kill()
   }, [active, reduced])
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (reduced || !groupRef.current) return undefined
 
     const ctx = gsap.context(() => {

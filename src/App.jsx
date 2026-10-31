@@ -5,40 +5,39 @@ import AmbientBackground from './components/AmbientBackground'
 import Home from './pages/Home'
 import About from './pages/About'
 import { useReducedMotion } from './hooks/useReducedMotion'
+import { applySeo } from './lib/seo-client'
 import { ScrollTrigger } from './lib/gsap'
+import { normalizeRoute } from './seo'
 
 function getRoute() {
-  const hash = window.location.hash.replace(/^#/, '')
-  return hash || '/'
+  if (typeof window === 'undefined') return '/'
+  return normalizeRoute(window.location.pathname)
 }
 
-function useHashRoute() {
-  const [route, setRoute] = useState(getRoute)
+function usePathRoute(initialRoute) {
+  const [route, setRoute] = useState(() => initialRoute ?? getRoute())
 
   useEffect(() => {
-    const onHashChange = () => setRoute(getRoute())
-    window.addEventListener('hashchange', onHashChange)
-    return () => window.removeEventListener('hashchange', onHashChange)
+    const onPopState = () => setRoute(getRoute())
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
   }, [])
 
-  return route
+  return [route, setRoute]
 }
 
-export default function App() {
-  const route = useHashRoute()
+export default function App({ initialRoute }) {
+  const [route, setRoute] = usePathRoute(initialRoute)
   const reduced = useReducedMotion()
-  const view = route === '/about' ? 'about' : 'home'
+  const view = route === '/about/' ? 'about' : 'home'
 
   useEffect(() => {
-    document.title =
-      view === 'about'
-        ? 'About — WEBSTAXX'
-        : 'WEBSTAXX — Web Developer, Programmer, Thinker'
+    applySeo(route)
     window.scrollTo({ top: 0, behavior: 'auto' })
 
     const frame = window.requestAnimationFrame(() => ScrollTrigger.refresh())
     return () => window.cancelAnimationFrame(frame)
-  }, [view])
+  }, [route])
 
   useEffect(() => {
     if (!document.fonts?.ready) return undefined
@@ -51,13 +50,20 @@ export default function App() {
     }
   }, [])
 
-  const navigate = useCallback((path) => {
-    if (getRoute() === path) {
-      window.scrollTo({ top: 0, behavior: 'auto' })
-      return
-    }
-    window.location.hash = path
-  }, [])
+  const navigate = useCallback(
+    (path) => {
+      const next = normalizeRoute(path)
+
+      if (getRoute() === next) {
+        window.scrollTo({ top: 0, behavior: 'auto' })
+        return
+      }
+
+      window.history.pushState({}, '', next)
+      setRoute(next)
+    },
+    [setRoute],
+  )
 
   const goToSection = useCallback(
     (id) => {

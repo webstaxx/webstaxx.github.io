@@ -1,40 +1,22 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { gsap } from '../lib/gsap'
+import { useIsomorphicLayoutEffect } from '../hooks/useIsomorphicLayoutEffect'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { ArrowUpRight, DiscordIcon, GithubIcon, InstagramIcon, MailIcon } from './Icons'
+import { socials } from '../data/site.js'
 
-const socials = [
-  {
-    label: 'GitHub',
-    handle: '@WebStacks05',
-    href: 'https://github.com/WebStacks05',
-    Icon: GithubIcon,
-  },
-  {
-    label: 'Discord',
-    handle: 'webstaxx',
-    href: 'https://discord.com/',
-    Icon: DiscordIcon,
-  },
-  {
-    label: 'Email',
-    handle: 'ngweb500@gmail.com',
-    href: 'mailto:ngweb500@gmail.com',
-    Icon: MailIcon,
-  },
-  {
-    label: 'Instagram',
-    handle: '@web_nexgen',
-    href: 'https://www.instagram.com/web_nexgen/',
-    Icon: InstagramIcon,
-  },
-]
+const socialIcons = {
+  github: GithubIcon,
+  discord: DiscordIcon,
+  mail: MailIcon,
+  instagram: InstagramIcon,
+}
 
 export default function ContactSection() {
   const rootRef = useRef(null)
   const reduced = useReducedMotion()
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const root = rootRef.current
     if (!root || reduced) return undefined
 
@@ -96,24 +78,28 @@ export default function ContactSection() {
 
           <div className="contact__links">
             <p className="contact__links-label">Find me elsewhere</p>
-            {socials.map(({ label, handle, href, Icon }) => (
-              <a
-                className="contact__link"
-                key={label}
-                href={href}
-                target={href.startsWith('http') ? '_blank' : undefined}
-                rel={href.startsWith('http') ? 'noreferrer' : undefined}
-              >
-                <span className="contact__link-icon">
-                  <Icon size={17} />
-                </span>
-                <span className="contact__link-text">
-                  <span>{label}</span>
-                  <strong>{handle}</strong>
-                </span>
-                <ArrowUpRight size={15} />
-              </a>
-            ))}
+            {socials.map((social) => {
+              const Icon = socialIcons[social.icon]
+
+              return (
+                <a
+                  className="contact__link"
+                  key={social.label}
+                  href={social.href}
+                  target={social.href.startsWith('http') ? '_blank' : undefined}
+                  rel={social.href.startsWith('http') ? 'noreferrer' : undefined}
+                >
+                  <span className="contact__link-icon">
+                    <Icon size={17} />
+                  </span>
+                  <span className="contact__link-text">
+                    <span>{social.label}</span>
+                    <strong>{social.handle}</strong>
+                  </span>
+                  <ArrowUpRight size={15} />
+                </a>
+              )
+            })}
           </div>
         </div>
       </div>

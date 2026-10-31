@@ -1,5 +1,6 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { gsap } from '../lib/gsap'
+import { useIsomorphicLayoutEffect } from '../hooks/useIsomorphicLayoutEffect'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { ArrowUpRight } from '../components/Icons'
 
@@ -25,7 +26,7 @@ export default function About({ onSection }) {
   const rootRef = useRef(null)
   const reduced = useReducedMotion()
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const root = rootRef.current
     if (!root || reduced) return undefined
 
@@ -123,10 +124,17 @@ export default function About({ onSection }) {
             {' '}
             <em>Let's look at the work.</em>
           </h2>
-          <button type="button" className="text-link" onClick={() => onSection('work')}>
+          <a
+            className="text-link"
+            href="/#work"
+            onClick={(event) => {
+              event.preventDefault()
+              onSection('work')
+            }}
+          >
             Selected work
             <ArrowUpRight size={16} />
-          </button>
+          </a>
         </div>
       </section>
     </div>
