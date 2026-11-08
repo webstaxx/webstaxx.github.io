@@ -11,8 +11,7 @@
   --cyan: #5bdbea;
   --cyan-soft: rgba(91, 219, 234, 0.14);
   --cyan-deep: #2b7f8c;
-  --serif: 'Instrument Serif', Georgia, serif;
-  --sans: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --sans: 'Cormorant Garamond', 'ui-serif', Georgia, serif;
   --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
   --shell: min(1440px, calc(100vw - 96px));
   --pad: clamp(24px, 5vw, 72px);
@@ -162,7 +161,6 @@ ol {
 
 .display em {
   color: #d6f4f7;
-  font-family: var(--serif);
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.025em;

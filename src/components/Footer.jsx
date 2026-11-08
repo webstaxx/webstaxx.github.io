@@ -30,7 +30,7 @@ export default function Footer({ onNavigate }) {
         </button>
       </div>
       <div className="section-shell site-footer__meta">
-        <span>© 2026 WEBSTAXX</span>
+        <span>© 2026 WEBSTAXX ·</span>
         <span>Made with code & curiosity</span>
       </div>
     </footer>

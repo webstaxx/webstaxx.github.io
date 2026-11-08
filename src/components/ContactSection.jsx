@@ -73,7 +73,7 @@ export default function ContactSection() {
               <span>ngweb500@gmail.com</span>
               <ArrowUpRight size={22} />
             </a>
-            <p className="contact__note">Based on Earth, for now. Replies when the stars align.</p>
+            <p className="contact__note">Based on Earth, for now. Always open to a conversation.</p>
           </div>
 
           <div className="contact__links">

@@ -78,11 +78,6 @@ export default function Header({ route, onNavigate, onSection }) {
             ))}
           </nav>
 
-          <div className="site-header__meta">
-            <span className="status-dot" aria-hidden="true" />
-            <span>Open for work</span>
-          </div>
-
           <button
             type="button"
             className="menu-toggle"

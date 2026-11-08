@@ -31,8 +31,9 @@ function rotate(point, rx, ry, rz) {
   return { x: x2, y: y2, z }
 }
 
-export default function WireframeTorus() {
+export default function WireframeTorus({ icons = [] }) {
   const canvasRef = useRef(null)
+  const nodeRefs = useRef([])
   const reduced = useReducedMotion()
 
   useEffect(() => {
@@ -64,6 +65,7 @@ export default function WireframeTorus() {
       canvas.width = Math.floor(view.width * view.dpr)
       canvas.height = Math.floor(view.height * view.dpr)
       ctx.setTransform(view.dpr, 0, 0, view.dpr, 0, 0)
+      if (reduced) draw(0)
     }
 
     const updateScroll = () => {
@@ -144,21 +146,19 @@ export default function WireframeTorus() {
         const radius = 2.2 + front * 1.8
 
         const glow = ctx.createRadialGradient(x, y, 0, x, y, radius * 8)
-        glow.addColorStop(0, `rgba(91, 219, 235, ${alpha * 0.32})`)
+        glow.addColorStop(0, `rgba(91, 219, 235, ${alpha * 0.28})`)
         glow.addColorStop(1, 'rgba(91, 219, 235, 0)')
         ctx.fillStyle = glow
         ctx.beginPath()
         ctx.arc(x, y, radius * 8, 0, Math.PI * 2)
         ctx.fill()
 
-        ctx.fillStyle = `rgba(175, 244, 250, ${alpha})`
-        ctx.beginPath()
-        ctx.arc(x, y, radius, 0, Math.PI * 2)
-        ctx.fill()
-
-        ctx.fillStyle = `rgba(175, 244, 250, ${alpha * 0.65})`
-        ctx.font = '9px "IBM Plex Mono", monospace'
-        ctx.fillText(String(index + 1).padStart(2, '0'), x + 9, y - 8)
+        const label = nodeRefs.current[index]
+        if (label) {
+          label.style.transform = `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px) translate(-50%, -50%)`
+          label.style.opacity = String(0.4 + front * 0.6)
+          label.style.zIndex = String(Math.round(front * 100))
+        }
       })
     }
 
@@ -187,5 +187,22 @@ export default function WireframeTorus() {
     }
   }, [reduced])
 
-  return <canvas ref={canvasRef} className="torus-canvas" aria-hidden="true" />
+  return (
+    <>
+      <canvas ref={canvasRef} className="torus-canvas" aria-hidden="true" />
+      <div className="torus-nodes" aria-hidden="true">
+        {icons.map((icon, index) => (
+          <span
+            className="torus-node"
+            key={index}
+            ref={(element) => {
+              nodeRefs.current[index] = element
+            }}
+          >
+            {icon}
+          </span>
+        ))}
+      </div>
+    </>
+  )
 }

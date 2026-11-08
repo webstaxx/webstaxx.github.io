@@ -3,51 +3,51 @@ export const profile = {
   descriptor: 'Web Developer · Programmer · Thinker',
   tagline: 'Building for the web. Exploring beyond it.',
   email: 'ngweb500@gmail.com',
-  github: 'https://github.com/WebStacks05',
-  instagram: 'https://www.instagram.com/web_nexgen/',
+  github: 'https://github.com/webstaxx',
+  instagram: 'https://www.instagram.com/webstaxxx/',
 }
 
 export const projects = [
   {
     index: '01',
-    title: 'Noelle AI',
-    subtitle: 'for Theorly.edu',
-    year: '2025',
-    note: 'A learning companion built for a quieter, more personal way of studying.',
-    tags: ['AI', 'Web', 'Product'],
+    title: 'Theorly',
+    subtitle: 'Educational technology · Theorly.in',
+    year: '2026',
+    note: 'An educational platform bringing cybersecurity and technology courses to school students. Developed collaboratively, with me leading backend development and independently building Noelle, its educational AI tutor.',
+    tags: ['Education', 'Backend', 'AI'],
   },
   {
     index: '02',
     title: 'Election Management System',
-    subtitle: 'Civic infrastructure',
-    year: '2024',
-    note: 'A system for organising, running, and reading elections with clarity.',
+    subtitle: 'School election infrastructure',
+    year: '2025',
+    note: 'A digital election management system for school student councils, featuring an administrative panel, category management, and dedicated student and teacher portals.',
     tags: ['Systems', 'Python', 'Data'],
   },
   {
     index: '03',
     title: 'Tallyne',
-    subtitle: 'An experimental esoteric programming language',
-    year: '2024',
-    note: 'A language experiment asking what computation could look like if the grammar changed.',
+    subtitle: 'Experimental esoteric programming language',
+    year: '2025',
+    note: 'An exploration of programming language design through unconventional syntax and a custom language interpreter. Primitive V1 completed.',
     tags: ['Language', 'Parser', 'Tooling'],
   },
   {
     index: '04',
-    title: 'Multiple Websites',
-    subtitle: 'Freelance / independent',
+    title: 'Independent Websites',
+    subtitle: 'Freelance · Web Development',
     year: '2023 — now',
-    note: 'A growing collection of independent builds, each shaped around its own purpose.',
-    tags: ['Web', 'Design', 'Build'],
+    note: 'A collection of websites and reusable templates developed through freelance work, each built around the needs and identity of its intended purpose.',
+    tags: ['Web', 'Design', 'Freelance'],
   },
 ]
 
 export const technologies = [
-  { name: 'HTML', role: 'Structure' },
-  { name: 'CSS', role: 'Interface' },
-  { name: 'JavaScript', role: 'Behaviour' },
-  { name: 'Python', role: 'Systems' },
-  { name: 'Java', role: 'Foundations' },
+  { name: 'HTML', role: 'Markup' },
+  { name: 'CSS', role: 'Styling' },
+  { name: 'JavaScript', role: 'Frontend development' },
+  { name: 'Python', role: 'Programming' },
+  { name: 'Java', role: 'Software development' },
 ]
 
 export const interests = [
@@ -60,13 +60,13 @@ export const interests = [
 export const socials = [
   {
     label: 'GitHub',
-    handle: '@WebStacks05',
+    handle: '@webstaxx',
     href: profile.github,
     icon: 'github',
   },
   {
     label: 'Discord',
-    handle: 'webstaxx',
+    handle: 'webstacks',
     href: 'https://discord.com/',
     icon: 'discord',
   },
@@ -78,7 +78,7 @@ export const socials = [
   },
   {
     label: 'Instagram',
-    handle: '@web_nexgen',
+    handle: '@webstaxxx',
     href: profile.instagram,
     icon: 'instagram',
   },

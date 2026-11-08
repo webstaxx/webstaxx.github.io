@@ -45,10 +45,10 @@ export default function InterestsSection() {
             Interests
           </p>
           <h2 id="interests-title" className="display">
-            Off-screen
+            Beyond the screen.
             <br />
             {' '}
-            <em>curiosities.</em>
+            <em>Beyond the obvious.</em>
           </h2>
           <div className="interests__static-grid">
             <div className="interests__static-visual">
@@ -81,10 +81,10 @@ export default function InterestsSection() {
               Interests
             </p>
             <h2 id="interests-title" className="display">
-              Off-screen
+              Beyond the screen.
               <br />
               {' '}
-              <em>curiosities.</em>
+              <em>Beyond the obvious.</em>
             </h2>
 
             <div className="interest-active" key={active}>

@@ -3,6 +3,7 @@ import { gsap } from '../lib/gsap'
 import { useIsomorphicLayoutEffect } from '../hooks/useIsomorphicLayoutEffect'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import WireframeTorus from './WireframeTorus'
+import { techLogos } from './TechLogos'
 import { technologies } from '../data/site.js'
 
 export default function TechSection() {
@@ -66,32 +67,43 @@ export default function TechSection() {
         <div className="stack__copy">
           <p className="eyebrow">
             <span>03</span>
-            Technologies
+            Languages & Technologies
           </p>
           <h2 id="stack-title" className="display">
-            Tools, not
+            The languages
             <br />
             {' '}
-            <em>trophies.</em>
+            <em>I build with.</em>
           </h2>
           <p className="body-copy">
-            A small, deliberate toolkit. Chosen for what it lets me build, not for the label it
-            carries.
+            From crafting interfaces to building backend systems, these are the programming
+            languages and web technologies I work with.
           </p>
           <ol className="tech-list">
-            {technologies.map((technology, index) => (
-              <li key={technology.name}>
-                <span className="tech-list__index">{String(index + 1).padStart(2, '0')}</span>
-                <span className="tech-list__name">{technology.name}</span>
-                <span className="tech-list__role">{technology.role}</span>
-              </li>
-            ))}
+            {technologies.map((technology) => {
+              const Logo = techLogos[technology.name]
+
+              return (
+                <li key={technology.name}>
+                  <span className="tech-list__logo">
+                    {Logo ? <Logo size={22} /> : null}
+                  </span>
+                  <span className="tech-list__name">{technology.name}</span>
+                  <span className="tech-list__role">{technology.role}</span>
+                </li>
+              )
+            })}
           </ol>
         </div>
 
         <div className="stack__visual">
           <div className="torus-frame">
-            <WireframeTorus />
+            <WireframeTorus
+              icons={technologies.map((technology) => {
+                const Logo = techLogos[technology.name]
+                return Logo ? <Logo size={16} /> : null
+              })}
+            />
             <span className="torus-frame__label">ROTATING FRAME / 03</span>
           </div>
         </div>
