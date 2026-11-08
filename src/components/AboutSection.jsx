@@ -3,7 +3,7 @@ import { gsap } from '../lib/gsap'
 import { useIsomorphicLayoutEffect } from '../hooks/useIsomorphicLayoutEffect'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { ArrowUpRight } from './Icons'
-import MagneticFieldCanvas from './MagneticFieldCanvas'
+import RippleFieldCanvas from './RippleFieldCanvas'
 
 const AXES = ['rx', 'ry', 'tx', 'ty', 'tz']
 
@@ -134,7 +134,7 @@ export default function AboutSection({ onNavigate }) {
 
   return (
     <section ref={rootRef} id="about" className="about section" aria-labelledby="about-title">
-      <MagneticFieldCanvas targetRef={rootRef} />
+      <RippleFieldCanvas targetRef={rootRef} />
 
       <div className="section-shell about__inner">
         <div ref={tileRef} className="about__tile">
