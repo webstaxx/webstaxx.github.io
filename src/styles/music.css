@@ -1,0 +1,40 @@
+.music-page {
+  position: relative;
+}
+
+.music-page__hero {
+  display: flex;
+  align-items: center;
+  min-height: 100svh;
+  padding: clamp(150px, 22vh, 240px) 0 clamp(80px, 11vw, 140px);
+}
+
+.music-page__hero .display {
+  max-width: 12ch;
+}
+
+.music-page__hero .lede {
+  margin-top: 24px;
+}
+
+.music-page__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 32px;
+  color: var(--pearl);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.music-page__back:hover {
+  color: var(--ink);
+}
+
+.music-page__back:focus-visible {
+  outline: 2px solid var(--pearl);
+  outline-offset: 4px;
+}

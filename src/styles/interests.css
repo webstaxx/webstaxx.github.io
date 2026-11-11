@@ -1,0 +1,572 @@
+/* WEBSTAXX — Interests ("Beyond the Screen"). Self-contained: every class is ix-prefixed,
+   so the old .interests / .interest-* rules in home.css are harmless and can be deleted. */
+
+.ix {
+  --ix-bg: #05030b;
+  --ix-ink: #f3f0fb;
+  --ix-muted: #b3a9cc;
+  --ix-dim: #9d93b8;
+  --ix-line: rgba(236, 232, 247, 0.16);
+  --ix-accent: #7fe9ff;
+  --ix-glow: rgba(91, 219, 234, 0.2);
+  --p: 0;
+  --sp: 0;
+  --level: 0;
+
+  position: relative;
+  height: 400vh;
+  background: var(--ix-bg);
+  color: var(--ix-ink);
+}
+
+.ix[data-scene='galaxy'] {
+  --ix-accent: #b79bff;
+  --ix-glow: rgba(139, 92, 255, 0.34);
+}
+
+.ix[data-scene='ribbons'] {
+  --ix-accent: #f5c451;
+  --ix-glow: rgba(224, 138, 30, 0.28);
+}
+
+.ix__sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+}
+
+.ix__glow {
+  position: absolute;
+  right: -4vw;
+  top: 50%;
+  width: min(66vw, 900px);
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background-color: var(--ix-glow);
+  filter: blur(150px);
+  transition: background-color 1400ms ease;
+  pointer-events: none;
+}
+
+.ix__glow--deep {
+  right: auto;
+  left: -14vw;
+  top: auto;
+  bottom: -26vh;
+  transform: none;
+  background-color: rgba(59, 42, 143, 0.35);
+}
+
+.ix__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    'head stage'
+    'info stage';
+  column-gap: clamp(24px, 5vw, 80px);
+  align-items: start;
+  width: min(1440px, calc(100vw - 2 * var(--pad, 48px)));
+  height: 100%;
+  margin: 0 auto;
+  padding: clamp(84px, 11vh, 120px) 0 clamp(24px, 4vh, 44px);
+  box-sizing: border-box;
+}
+
+.ix__head {
+  grid-area: head;
+}
+
+.ix__title {
+  margin: 14px 0 0;
+  font-family: var(--sans, 'Cormorant Garamond', Georgia, serif);
+  font-size: clamp(2.6rem, 5.6vw, 5.4rem);
+  font-weight: 300;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+}
+
+.ix__title em {
+  color: #c9b8ff;
+  font-style: italic;
+}
+
+.ix__info {
+  grid-area: info;
+  align-self: end;
+  display: grid;
+  gap: clamp(18px, 3vh, 32px);
+}
+
+.ix__texts {
+  display: grid;
+}
+
+.ix__text {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 700ms ease, transform 900ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  pointer-events: none;
+}
+
+.ix__text.is-prev {
+  transform: translateY(-22px);
+}
+
+.ix__text.is-current {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  transition-delay: 250ms;
+}
+
+.ix__name-row {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.ix__num {
+  font-family: var(--mono, 'IBM Plex Mono', monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--ix-accent);
+  transition: color 800ms ease;
+}
+
+.ix__name {
+  margin: 0;
+  font-family: var(--sans, 'Cormorant Garamond', Georgia, serif);
+  font-size: clamp(2.6rem, 5.2vw, 4.8rem);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+}
+
+.ix__note {
+  margin: 10px 0 0 clamp(30px, 3vw, 40px);
+  max-width: 27em;
+  color: var(--ix-muted);
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+  font-weight: 300;
+  line-height: 1.35;
+}
+
+.ix__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 18px;
+  margin-left: clamp(30px, 3vw, 40px);
+  padding: 9px 16px;
+  border: 1px solid rgba(245, 196, 81, 0.5);
+  border-radius: 999px;
+  color: #f5c451;
+  font-family: var(--mono, 'IBM Plex Mono', monospace);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 300ms ease, border-color 300ms ease;
+}
+
+.ix__link:hover {
+  background: rgba(245, 196, 81, 0.12);
+  border-color: rgba(245, 196, 81, 0.85);
+}
+
+.ix__link:focus-visible {
+  outline: 2px solid var(--ix-ink);
+  outline-offset: 4px;
+}
+
+.ix__link svg {
+  flex: none;
+}
+
+.ix__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+}
+
+.ix__tabs {
+  display: flex;
+  gap: 12px;
+}
+
+.ix__tab {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  width: clamp(64px, 9vw, 128px);
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.ix__tab:focus-visible,
+.ix__sound:focus-visible {
+  outline: 2px solid var(--ix-ink);
+  outline-offset: 4px;
+}
+
+.ix__rail {
+  display: block;
+  height: 2px;
+  background: var(--ix-line);
+  overflow: hidden;
+}
+
+.ix__fill {
+  display: block;
+  height: 100%;
+  background: var(--tab-accent);
+}
+
+.ix__tab-label {
+  font-family: var(--mono, 'IBM Plex Mono', monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ix-dim);
+  transition: color 600ms ease;
+}
+
+.ix__tab[aria-current='true'] .ix__tab-label {
+  color: var(--ix-ink);
+}
+
+.ix__sound {
+  all: unset;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(245, 196, 81, 0.55);
+  border-radius: 50%;
+  color: #f5c451;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 600ms ease, visibility 0s 600ms, background 300ms ease, box-shadow 300ms ease;
+}
+
+.ix__sound.is-shown {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 500ms, 0s, 0s, 0s;
+}
+
+.ix__sound.is-on {
+  background: rgba(245, 196, 81, 0.12);
+  box-shadow: 0 0 18px rgba(245, 196, 81, 0.22);
+}
+
+.ix__sound svg {
+  width: 18px;
+  height: 18px;
+  overflow: visible;
+}
+
+.ix__sound-body {
+  fill: currentColor;
+}
+
+.ix__sound-wave,
+.ix__sound-slash {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ------------------------------ stage ------------------------------ */
+
+.ix__stage {
+  grid-area: stage;
+  align-self: center;
+  justify-self: center;
+  width: min(100%, 76svh);
+  aspect-ratio: 1;
+  transform: translateY(calc((var(--sp) - 0.5) * -28px));
+}
+
+.ix-art {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.ix-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.ix-scene {
+  position: absolute;
+  inset: 0;
+  transition: opacity 1100ms cubic-bezier(0.65, 0, 0.2, 1), transform 1400ms cubic-bezier(0.65, 0, 0.2, 1),
+    filter 1100ms ease, visibility 0s;
+}
+
+.ix-scene.is-current {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+
+.ix-scene.is-next,
+.ix-scene.is-prev {
+  opacity: 0;
+  visibility: hidden;
+  filter: blur(10px);
+  transition-delay: 0s, 0s, 0s, 1400ms;
+  pointer-events: none;
+}
+
+.ix-scene.is-next {
+  transform: translate3d(9%, 2%, 0) rotate(14deg) scale(1.18);
+}
+
+.ix-scene.is-prev {
+  transform: translate3d(-9%, -2%, 0) rotate(-14deg) scale(0.8);
+}
+
+/* Hidden scenes stop animating (CSS here, SMIL in InterestArtwork). */
+.ix-scene.is-next *,
+.ix-scene.is-prev * {
+  animation-play-state: paused !important;
+}
+
+.ix-ring {
+  position: absolute;
+  inset: 5%;
+  border: 1px solid rgba(127, 233, 255, 0.2);
+  border-radius: 50%;
+  transition: transform 1600ms cubic-bezier(0.65, 0, 0.2, 1), border-color 1200ms ease;
+  transform: scale(0.94);
+  pointer-events: none;
+}
+
+.ix-art[data-active='1'] .ix-ring {
+  transform: scale(1.03) rotate(34deg) scaleY(0.56);
+  border-color: rgba(183, 155, 255, 0.26);
+}
+
+.ix-art[data-active='2'] .ix-ring {
+  transform: scale(0.82) rotate(-28deg);
+  border-color: rgba(245, 196, 81, 0.24);
+}
+
+.ix-art--single {
+  max-width: 520px;
+}
+
+/* --------------------- scroll-reactive hooks (--sp / --p) --------------------- */
+
+.ixp-scroll {
+  transform-origin: 368px 268px;
+  transform: rotate(calc((var(--sp) - 0.5) * 8deg));
+}
+
+.ixg-scroll {
+  transform: rotate(calc(var(--sp) * 120deg));
+}
+
+.ixr-scroll {
+  transform-origin: 300px 300px;
+  transform: translateX(calc((var(--sp) - 0.5) * -36px)) rotate(calc((var(--sp) - 0.5) * 3deg));
+}
+
+/* ------------------------------ Prism ------------------------------ */
+
+.ixp-float { animation: ixp-float 8s ease-in-out infinite; }
+.ixp-spread { transform-origin: 368px 268px; animation: ixp-spread 7s ease-in-out infinite; }
+.ixp-sway { transform-origin: 368px 268px; animation: ixp-sway 9s ease-in-out infinite; }
+.ixp-run { stroke-dasharray: 22 120; animation: ixp-run 2.8s linear infinite; }
+.ixp-run2 { stroke-dasharray: 14 90; animation: ixp-run2 2.2s linear infinite; }
+.ixp-flare { transform-origin: 368px 268px; animation: ixp-flare 3.6s ease-in-out infinite; }
+.ixp-flare-in { transform-origin: 234px 264px; animation: ixp-flare 4.4s ease-in-out infinite; }
+.ixp-band { animation: ixp-band 4.8s ease-in-out infinite; }
+.ixp-glint { animation: ixp-glint 6s ease-in-out infinite; }
+.ixp-dust { animation: ixp-dust 12s ease-in-out infinite; }
+
+@keyframes ixp-float { 0%, 100% { transform: translateY(-4px); } 50% { transform: translateY(5px); } }
+@keyframes ixp-spread { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.14); } }
+@keyframes ixp-sway { 0%, 100% { transform: rotate(-1.2deg); } 50% { transform: rotate(1.6deg); } }
+@keyframes ixp-run { from { stroke-dashoffset: 142; } to { stroke-dashoffset: 0; } }
+@keyframes ixp-run2 { from { stroke-dashoffset: 104; } to { stroke-dashoffset: 0; } }
+@keyframes ixp-flare { 0%, 100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 1; transform: scale(1.35); } }
+@keyframes ixp-band { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.82; } }
+@keyframes ixp-glint { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+@keyframes ixp-dust { 0%, 100% { transform: translate(0, 0); opacity: 0.2; } 50% { transform: translate(10px, -14px); opacity: 0.75; } }
+
+/* ------------------------------ Galaxy ------------------------------ */
+
+.ixg-spin { animation: ixg-spin 140s linear infinite; }
+.ixg-breathe { animation: ixg-breathe 9s ease-in-out infinite; }
+.ixg-r1 { animation: ixg-spin 38s linear infinite; }
+.ixg-r2 { animation: ixg-spin 62s linear infinite reverse; }
+.ixg-r3 { animation: ixg-spin 90s linear infinite; }
+.ixg-r4 { animation: ixg-spin 130s linear infinite reverse; }
+.ixg-flow { animation: ixg-flow 16s linear infinite; }
+.ixg-flow2 { animation: ixg-flow 26s linear infinite; }
+.ixg-core { transform-origin: 300px 300px; animation: ixg-core 5.5s ease-in-out infinite; }
+.ixg-star { animation: ixg-twinkle 4s ease-in-out infinite; }
+.ixg-cloud { animation: ixg-cloud 18s ease-in-out infinite; }
+
+@keyframes ixg-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes ixg-breathe { 0%, 100% { transform: scale(1); opacity: 0.92; } 50% { transform: scale(1.035); opacity: 1; } }
+@keyframes ixg-flow { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -400; } }
+@keyframes ixg-core { 0%, 100% { opacity: 0.8; transform: scale(1); } 50% { opacity: 1; transform: scale(1.12); } }
+@keyframes ixg-twinkle { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
+@keyframes ixg-cloud { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(14px, -8px); } }
+
+/* ------------------------------ Ribbons ------------------------------ */
+
+.ixr-beat { transform-origin: 300px 300px; animation: ixr-beat 2.08s ease-in-out infinite; }
+.ixr-glow { opacity: 0.55; }
+.ixr-spark { animation: ixr-spark 5s ease-in-out infinite; }
+
+/* Audio on: the idle pulse is replaced by the live level (0–1) set from the analyser. */
+.ix--live .ixr-beat {
+  animation: none;
+  transform: scale(calc(1 + var(--level) * 0.07)) rotate(calc(var(--level) * 1.2deg));
+}
+
+.ix--live .ixr-glow {
+  opacity: calc(0.5 + var(--level) * 0.5);
+}
+
+.ix--live .ixr-spark {
+  animation-duration: 1.04s;
+}
+
+@keyframes ixr-beat { 0%, 100% { transform: scale(1); } 8% { transform: scale(1.015); } 40% { transform: scale(1); } 58% { transform: scale(1.012); } }
+@keyframes ixr-spark { 0%, 100% { opacity: 0.15; transform: translateY(0); } 50% { opacity: 0.95; transform: translateY(-12px); } }
+
+/* ------------------------- reduced-motion fallback ------------------------- */
+
+.ix--static {
+  height: auto;
+  padding: clamp(96px, 13vw, 180px) 0;
+}
+
+.ix--static .ix__title {
+  margin-bottom: clamp(36px, 6vw, 64px);
+}
+
+.ix__static-list {
+  display: grid;
+  gap: clamp(40px, 7vw, 80px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ix__static-item {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+  gap: clamp(24px, 6vw, 80px);
+  align-items: center;
+}
+
+.ix--static .ix__note {
+  margin-left: 0;
+}
+
+.ix--static .ix__link {
+  margin-left: 0;
+}
+
+/* ------------------------------ responsive ------------------------------ */
+
+@media (max-width: 899px) {
+  .ix {
+    height: 360vh;
+  }
+
+  .ix__grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      'head'
+      'stage'
+      'info';
+    row-gap: 8px;
+    padding: 84px 0 22px;
+  }
+
+  .ix__title {
+    margin-top: 8px;
+    font-size: clamp(2.2rem, 10.5vw, 3.3rem);
+  }
+
+  .ix__stage {
+    width: min(92vw, 100%, 46svh);
+    height: auto;
+    max-height: 100%;
+    align-self: center;
+  }
+
+  .ix__info {
+    gap: 14px;
+  }
+
+  .ix__name {
+    font-size: clamp(2.2rem, 11vw, 3.2rem);
+  }
+
+  .ix__note {
+    font-size: 1.1rem;
+    margin-left: 30px;
+  }
+
+  .ix__tabs {
+    width: 100%;
+  }
+
+  .ix__tab {
+    flex: 1;
+    width: auto;
+  }
+
+  .ix__tab-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+  }
+
+  .ix__static-item {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-height: 640px) and (max-width: 899px) {
+  .ix__stage {
+    width: min(70vw, 38svh);
+  }
+
+  .ix__note {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ix * {
+    animation: none !important;
+  }
+}

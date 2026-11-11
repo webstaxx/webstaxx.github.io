@@ -42,7 +42,7 @@
 .about-page__rail-fill {
   transform: scaleY(0);
   transform-origin: top center;
-  background: var(--cyan);
+  background: var(--pearl);
 }
 
 .about-page__entries {
@@ -67,7 +67,7 @@
 
 .about-entry__index {
   padding-top: 7px;
-  color: var(--cyan);
+  color: var(--pearl);
   font-family: var(--mono);
   font-size: 0.59rem;
   letter-spacing: 0.08em;

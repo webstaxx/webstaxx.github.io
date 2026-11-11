@@ -4,6 +4,7 @@ import Footer from './components/Footer'
 import AmbientBackground from './components/AmbientBackground'
 import Home from './pages/Home'
 import About from './pages/About'
+import Music from './pages/Music'
 import { useReducedMotion } from './hooks/useReducedMotion'
 import { applySeo } from './lib/seo-client'
 import { ScrollTrigger } from './lib/gsap'
@@ -29,7 +30,7 @@ function usePathRoute(initialRoute) {
 export default function App({ initialRoute }) {
   const [route, setRoute] = usePathRoute(initialRoute)
   const reduced = useReducedMotion()
-  const view = route === '/about/' ? 'about' : 'home'
+  const view = route === '/about/' ? 'about' : route === '/music/' ? 'music' : 'home'
 
   useEffect(() => {
     applySeo(route)
@@ -107,6 +108,8 @@ export default function App({ initialRoute }) {
       <main id="main" tabIndex={-1} className="page" key={view}>
         {view === 'about' ? (
           <About onSection={goToSection} />
+        ) : view === 'music' ? (
+          <Music onNavigate={navigate} />
         ) : (
           <Home onNavigate={navigate} onSection={goToSection} />
         )}

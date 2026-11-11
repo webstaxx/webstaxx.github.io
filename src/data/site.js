@@ -51,10 +51,9 @@ export const technologies = [
 ]
 
 export const interests = [
-  { name: 'Physics', note: 'The rules underneath everything.' },
-  { name: 'Astronomy', note: 'The scale above everything.' },
-  { name: 'Technology', note: 'The tools in between.' },
-  { name: 'Music', note: 'The pattern you can feel.' },
+  { name: 'Physics', note: 'I work to understand the Universe at its depths.' },
+  { name: 'Astronomy', note: 'I look up to the Sky, and yearn for the Stars.' },
+  { name: 'Music', note: 'I make music to feel the Symphonies.' },
 ]
 
 export const socials = [

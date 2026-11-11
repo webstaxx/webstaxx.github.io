@@ -115,7 +115,7 @@ export default function WireframeTorus({ icons = [] }) {
           if (index === 0) ctx.moveTo(point.x, point.y)
           else ctx.lineTo(point.x, point.y)
         })
-        ctx.strokeStyle = `rgba(89, 218, 235, ${alpha})`
+        ctx.strokeStyle = `rgba(180, 208, 238, ${alpha})`
         ctx.lineWidth = 0.65
         ctx.stroke()
       }
@@ -146,8 +146,8 @@ export default function WireframeTorus({ icons = [] }) {
         const radius = 2.2 + front * 1.8
 
         const glow = ctx.createRadialGradient(x, y, 0, x, y, radius * 8)
-        glow.addColorStop(0, `rgba(91, 219, 235, ${alpha * 0.28})`)
-        glow.addColorStop(1, 'rgba(91, 219, 235, 0)')
+        glow.addColorStop(0, `rgba(180, 208, 238, ${alpha * 0.28})`)
+        glow.addColorStop(1, 'rgba(180, 208, 238, 0)')
         ctx.fillStyle = glow
         ctx.beginPath()
         ctx.arc(x, y, radius * 8, 0, Math.PI * 2)

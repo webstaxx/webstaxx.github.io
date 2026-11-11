@@ -15,7 +15,7 @@
 .site-header.is-scrolled {
   padding: 14px 0;
   border-bottom: 1px solid var(--line);
-  background: rgba(3, 6, 11, 0.72);
+  background: rgba(4, 8, 18, 0.72);
   backdrop-filter: blur(18px);
 }
 
@@ -88,7 +88,7 @@
   height: 1px;
   transform: scaleX(0);
   transform-origin: right center;
-  background: var(--cyan);
+  background: var(--pearl);
   content: '';
   transition: transform 300ms ease;
 }
@@ -137,7 +137,7 @@
   flex-direction: column;
   padding: 112px var(--pad) 34px;
   visibility: hidden;
-  background: rgba(3, 6, 11, 0.98);
+  background: rgba(4, 8, 18, 0.98);
   opacity: 0;
   transform: translateY(-10px);
   transition:
@@ -172,7 +172,7 @@
 }
 
 .mobile-menu__index {
-  color: var(--cyan);
+  color: var(--pearl);
   font-family: var(--mono);
   font-size: 0.58rem;
   font-weight: 400;
@@ -235,7 +235,7 @@
 }
 
 .site-footer__top:hover {
-  color: var(--cyan);
+  color: var(--pearl);
 }
 
 .site-footer__meta {

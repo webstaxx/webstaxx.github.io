@@ -12,7 +12,7 @@ export default function Home({ onNavigate, onSection }) {
       <AboutSection onNavigate={onNavigate} />
       <ProjectsSection />
       <TechSection />
-      <InterestsSection />
+      <InterestsSection onNavigate={onNavigate} />
       <ContactSection />
     </>
   )

@@ -83,12 +83,12 @@ export default function RippleFieldCanvas({ targetRef }) {
       }
       ctx.closePath()
 
-      ctx.strokeStyle = `rgba(91, 219, 235, ${alpha})`
+      ctx.strokeStyle = `rgba(180, 208, 238, ${alpha})`
       ctx.lineWidth = (0.7 + surge * 0.85) * (0.7 + ring.strength * 0.5)
       ctx.stroke()
 
       if (ring.strength > 0.9 || surge > 0.3) {
-        ctx.strokeStyle = `rgba(214, 244, 247, ${alpha * 0.35})`
+        ctx.strokeStyle = `rgba(226, 236, 248, ${alpha * 0.35})`
         ctx.lineWidth = Math.max(0.4, (0.35 + surge * 0.5) * ring.strength)
         ctx.stroke()
       }
@@ -109,9 +109,9 @@ export default function RippleFieldCanvas({ targetRef }) {
         center.y,
         glowRadius,
       )
-      glow.addColorStop(0, `rgba(91, 219, 235, ${glowAlpha})`)
-      glow.addColorStop(0.45, `rgba(43, 127, 140, ${glowAlpha * 0.5})`)
-      glow.addColorStop(1, 'rgba(4, 10, 18, 0)')
+      glow.addColorStop(0, `rgba(180, 208, 238, ${glowAlpha})`)
+      glow.addColorStop(0.45, `rgba(95, 134, 173, ${glowAlpha * 0.5})`)
+      glow.addColorStop(1, 'rgba(4, 8, 18, 0)')
       ctx.fillStyle = glow
       ctx.fillRect(0, 0, width, height)
 
@@ -125,7 +125,7 @@ export default function RippleFieldCanvas({ targetRef }) {
       const dotRadius = 1.5 + surge * 2.2 + flash * 1.6
       ctx.beginPath()
       ctx.arc(center.x, center.y, dotRadius, 0, TAU)
-      ctx.fillStyle = `rgba(214, 244, 247, ${0.19 + surge * 0.28 + flash * 0.2})`
+      ctx.fillStyle = `rgba(226, 236, 248, ${0.19 + surge * 0.28 + flash * 0.2})`
       ctx.fill()
     }
 
@@ -156,7 +156,7 @@ export default function RippleFieldCanvas({ targetRef }) {
           else ctx.lineTo(x, y)
         }
         ctx.closePath()
-        ctx.strokeStyle = `rgba(91, 219, 235, ${alpha})`
+        ctx.strokeStyle = `rgba(180, 208, 238, ${alpha})`
         ctx.lineWidth = 0.9
         ctx.stroke()
       }

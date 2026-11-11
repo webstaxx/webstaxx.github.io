@@ -2,11 +2,13 @@ import { interests, profile, projects, technologies } from './data/site.js'
 
 export const SITE_URL = 'https://webstaxx.github.io'
 
-export const ROUTES = ['/', '/about/']
+export const ROUTES = ['/', '/about/', '/music/']
 
 export function normalizeRoute(pathname = '/') {
   const path = pathname.replace(/\/+$/, '') || '/'
-  return path === '/about' ? '/about/' : '/'
+  if (path === '/about') return '/about/'
+  if (path === '/music') return '/music/'
+  return '/'
 }
 
 const personId = `${SITE_URL}/#person`
@@ -26,6 +28,12 @@ const pageSeo = {
       'About WEBSTAXX — a self-taught web developer and programmer. How I work, what I am studying, and what I am building.',
     canonical: `${SITE_URL}/about/`,
     ogType: 'profile',
+  },
+  '/music/': {
+    title: 'Music — WEBSTAXX',
+    description: 'Music by WEBSTAXX — a place for the sounds I make.',
+    canonical: `${SITE_URL}/music/`,
+    ogType: 'website',
   },
 }
 

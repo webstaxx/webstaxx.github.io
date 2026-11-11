@@ -36,7 +36,7 @@ export default function AmbientBackground() {
         alpha: Math.random() * 0.42 + 0.08,
         phase: Math.random() * Math.PI * 2,
         drift: Math.random() * 0.12 + 0.03,
-        cyan: Math.random() > 0.84,
+        pearl: Math.random() > 0.84,
       }))
     }
 
@@ -44,7 +44,7 @@ export default function AmbientBackground() {
       const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius)
       gradient.addColorStop(0, color)
       gradient.addColorStop(0.55, color.replace(/[\d.]+\)$/, '0.08)'))
-      gradient.addColorStop(1, 'rgba(2, 6, 12, 0)')
+      gradient.addColorStop(1, 'rgba(3, 7, 16, 0)')
       ctx.fillStyle = gradient
       ctx.beginPath()
       ctx.arc(x, y, radius, 0, Math.PI * 2)
@@ -62,27 +62,27 @@ export default function AmbientBackground() {
         width * 0.2 + Math.sin(t) * width * 0.05,
         height * 0.3 + Math.cos(t * 0.8) * height * 0.05,
         size * 0.56,
-        'rgba(9, 38, 56, 0.46)',
+        'rgba(10, 24, 48, 0.46)',
       )
       blob(
         width * 0.82 + Math.cos(t * 0.72) * width * 0.04,
         height * 0.66 + Math.sin(t * 0.9) * height * 0.05,
         size * 0.5,
-        'rgba(7, 27, 45, 0.52)',
+        'rgba(7, 18, 40, 0.52)',
       )
       blob(
         width * 0.54 + Math.sin(t * 1.2) * width * 0.03,
         height * 0.1 + Math.cos(t * 0.6) * height * 0.03,
         size * 0.42,
-        'rgba(12, 47, 58, 0.2)',
+        'rgba(24, 52, 88, 0.2)',
       )
       ctx.globalCompositeOperation = 'source-over'
 
       for (const star of stars) {
         const shimmer = reduced ? 1 : 0.7 + Math.sin(time * 0.0006 * star.drift * 10 + star.phase) * 0.3
-        ctx.fillStyle = star.cyan
-          ? `rgba(104, 220, 235, ${star.alpha * shimmer})`
-          : `rgba(190, 220, 232, ${star.alpha * shimmer})`
+        ctx.fillStyle = star.pearl
+          ? `rgba(180, 208, 238, ${star.alpha * shimmer})`
+          : `rgba(200, 216, 235, ${star.alpha * shimmer})`
         ctx.beginPath()
         ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2)
         ctx.fill()
